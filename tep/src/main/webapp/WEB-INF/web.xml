@@ -4,4 +4,44 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+  	<servlet-name>visit</servlet-name>
+  	<display-name>visit</display-name>
+  	<description></description>
+  	<servlet-class>visit</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>examination</servlet-name>
+  	<display-name>examination</display-name>
+  	<description></description>
+  	<servlet-class>examination</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>doctorsByIllness</servlet-name>
+  	<display-name>doctorsByIllness</display-name>
+  	<description></description>
+  	<servlet-class>doctorsByIllness</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>makeVisit</servlet-name>
+  	<display-name>makeVisit</display-name>
+  	<description></description>
+  	<servlet-class>makeVisit</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>visit</servlet-name>
+  	<url-pattern>/visit</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>examination</servlet-name>
+  	<url-pattern>/examination</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>doctorsByIllness</servlet-name>
+  	<url-pattern>/doctorsByIllness</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>makeVisit</servlet-name>
+  	<url-pattern>/makeVisit</url-pattern>
+  </servlet-mapping>
 </web-app>

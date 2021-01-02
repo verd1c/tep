@@ -17,6 +17,7 @@ public class PatientDB {
         StringBuilder query = new StringBuilder(), userQuery = new StringBuilder();
         
         try {
+        	Class.forName("com.mysql.jdbc.Driver");
         	con = TepDB.getConnection();
         	statement = con.createStatement();
         	
@@ -39,7 +40,11 @@ public class PatientDB {
         }catch(SQLException e) {
         	System.out.println("I failed sadge" + e);
         	return patient;
-        }finally {
+        } catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return patient;
+		}finally {
         	
         }
 	}

@@ -1,5 +1,8 @@
 package gr.csd.uoc.cs360.tep.model;
 
-public class Illness {
+import gr.csd.uoc.cs360.tep.model.Doctor.Specialization;
 
+public class Illness {
+	private String name;
+	private Specialization specialization;
 }

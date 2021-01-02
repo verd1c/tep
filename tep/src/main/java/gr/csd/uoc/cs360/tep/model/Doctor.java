@@ -12,7 +12,7 @@ public class Doctor extends User implements Serializable {
      */
     public enum Specialization {
 
-        ALLERGIST("Allergist"), ANESTHESIOLOGIST("Anesthesiologist"), CARDIOLOGIST("Cardiologist"), SURGEON("Surgeon"), DERMATOLOGIST("Dermatologist");
+        ALLERGIST("Allergist"), ANESTHESIOLOGIST("Anesthesiologist"), CARDIOLOGIST("Cardiologist"), SURGEON("Surgeon"), DERMATOLOGIST("Dermatologist"), GENERAL("General");
         private final String value;
 
         private Specialization(String value) {
@@ -67,6 +67,9 @@ public class Doctor extends User implements Serializable {
         case "dermatologist":
             this.specialization = Specialization.DERMATOLOGIST;
             break;
+        case "general":
+        	this.specialization = Specialization.GENERAL;
+        	break;
     }
 	}
 	
