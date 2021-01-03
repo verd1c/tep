@@ -1,0 +1,68 @@
+<div class="container-fluid text-center s-visit" id="visitbody">
+    <div class="container" id="visitcont">
+        <h1>Make a visit</h1>
+
+        <form id="visitform">
+            <!-- First and Last name -->
+            <div class="form-row">
+                <div class="form-group col-md-2"></div>
+
+                <!-- First Name -->
+                <div class="form-group col-md-4">
+                    <input type="text" id="firstName" class="form-control" required placeholder="First Name">
+                </div>
+
+                <!-- Last Name -->
+                <div class="form-group col-md-4">
+                    <input type="text" id="lastName" class="form-control" required placeholder="Last Name">
+                </div>
+
+                <div class="form-group col-md-2"></div>
+            </div>
+
+            <!-- AMKA and Illness -->
+            <div class="form-row">
+                <div class="form-group col-md-2"></div>
+
+                <!-- AMKA -->
+                <div class="form-group col-md-4">
+                    <input type="text" id="amka" class="form-control" required placeholder="AMKA">
+                </div>
+
+                <!-- Illness -->
+                <div class="form-group col-md-4">
+                    <select class="form-control" id="illness">
+                        <option value="HA" selected>Heartache</option>
+                        <option value="IF">Inflammation</option>
+                        <option value="FE">Fever</option>
+                        <option value="CZ">Eczema</option>
+                        <option value="GP">General Pain</option>
+                        <option value="KS">Kidney Stone</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-md-2"></div>
+            </div>
+
+            <!-- Address and Institution -->
+            <div class="form-row">
+                <div class="form-group col-md-2"></div>
+
+                <!-- Address -->
+                <div class="form-group col-md-4">
+                    <input type="text" id="address" class="form-control" required placeholder="Address">
+                </div>
+
+                <!-- Institution -->
+                <div class="form-group col-md-4">
+                    <input type="text" id="institution" class="form-control" required placeholder="Institution">
+                </div>
+
+                <div class="form-group col-md-2"></div>
+            </div>
+
+            <!-- Submit -->
+            <input type="button" id="visitBtn" class="btn btn-primary" value="Visit"></input>
+        </form>
+    </div>
+</div>

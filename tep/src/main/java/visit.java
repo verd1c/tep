@@ -10,7 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import gr.csd.uoc.cs360.tep.db.PatientDB;
+import gr.csd.uoc.cs360.tep.db.ShiftDB;
 import gr.csd.uoc.cs360.tep.db.VisitDB;
+import gr.csd.uoc.cs360.tep.model.Patient;
 import gr.csd.uoc.cs360.tep.model.Visit;
 
 /**
@@ -47,8 +50,31 @@ public class visit extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+	
+		// Check if patient exists
+		Patient patient = null;
+		patient = PatientDB.getPatient(Integer.parseInt(request.getParameter("amka")));
+		
+		if(patient == null) {
+			Patient newPatient = new Patient();
+			newPatient.setAMKA(Integer.parseInt(request.getParameter("amka")));
+			newPatient.setFirstName(request.getParameter("firstName"));
+			newPatient.setLastName(request.getParameter("lastName"));
+			newPatient.setAddress(request.getParameter("address"));
+			newPatient.setInstitution(request.getParameter("institution"));
+			
+			// Add the new patient
+			PatientDB.addPatient(newPatient);
+			patient = PatientDB.getPatient(Integer.parseInt(request.getParameter("amka")));
+		}
+		
+		// Create the visit
+		Visit visit = new Visit();
+		
+		visit.setAMKA(Integer.parseInt(request.getParameter("amka")));
+		visit.setIllness(request.getParameter("illness").toLowerCase());
+		visit.setDoctorID(ShiftDB.getShiftDoctor(visit.getIllness().toLowerCase()).getUserID());
+		VisitDB.makeVisit(visit);
 	}
 
 }

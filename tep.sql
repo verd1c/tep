@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 27, 2020 at 07:24 PM
+-- Generation Time: Jan 03, 2021 at 11:43 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -34,6 +34,18 @@ CREATE TABLE `doctors` (
   `specialization` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `doctors`
+--
+
+INSERT INTO `doctors` (`user_id`, `first_name`, `last_name`, `specialization`) VALUES
+(14, 'johnny', 'sins', 'Cardiologist'),
+(17, 'bob', 'marley', 'Surgeon'),
+(18, 'nick', 'takeo', 'Surgeon'),
+(19, 'nikolas', 'cage', 'General'),
+(20, 'John', 'Doe', 'Dermatologist'),
+(21, 'Julia', 'Majch', 'Allergist');
+
 -- --------------------------------------------------------
 
 --
@@ -45,6 +57,29 @@ CREATE TABLE `employees` (
   `first_name` int(30) NOT NULL,
   `last_name` int(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `illness`
+--
+
+CREATE TABLE `illness` (
+  `name` varchar(40) NOT NULL,
+  `specialization` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `illness`
+--
+
+INSERT INTO `illness` (`name`, `specialization`) VALUES
+('eczema', 'Dermatologist'),
+('fever', 'General'),
+('heartache', 'Cardiologist'),
+('inflammation', 'Allergist'),
+('kidneystone', 'Surgeon'),
+('pain', 'Anesthesiologist');
 
 -- --------------------------------------------------------
 
@@ -73,6 +108,65 @@ CREATE TABLE `patients` (
   `institution` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `patients`
+--
+
+INSERT INTO `patients` (`user_id`, `amka`, `first_name`, `last_name`, `address`, `institution`) VALUES
+(15, 100, 'Aimee', 'Marchand', 'Deutschland', 'Ayaya'),
+(22, 169, 'Jason', 'Derulo', 'Desesaas', 'Aaaaa'),
+(23, 3211, 'Poly', 'Forest', 'Axaxa', 'Idk'),
+(24, 732, 'Jules', 'Uwu', 'Waw', 'Wow');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shift`
+--
+
+CREATE TABLE `shift` (
+  `shift_id` int(20) NOT NULL,
+  `since` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `shift`
+--
+
+INSERT INTO `shift` (`shift_id`, `since`) VALUES
+(1, '2021-01-03 12:09:35.431'),
+(2, '2021-01-03 12:10:21.822'),
+(3, '2021-01-03 12:12:28.683');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shift_attendee`
+--
+
+CREATE TABLE `shift_attendee` (
+  `shift_id` int(20) NOT NULL,
+  `user_id` int(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `shift_attendee`
+--
+
+INSERT INTO `shift_attendee` (`shift_id`, `user_id`) VALUES
+(1, 14),
+(1, 17),
+(1, 18),
+(1, 19),
+(2, 14),
+(2, 17),
+(2, 21),
+(2, 19),
+(3, 14),
+(3, 17),
+(3, 21),
+(3, 19);
+
 -- --------------------------------------------------------
 
 --
@@ -85,6 +179,44 @@ CREATE TABLE `users` (
   `password` varchar(20) NOT NULL,
   `job` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`user_id`, `username`, `password`, `job`) VALUES
+(14, 'johnnysins', 'psins', 'doctor'),
+(15, '100', 'p100', 'patient'),
+(17, 'bobmarley', 'pmarley', 'doctor'),
+(18, 'nicktakeo', 'ptakeo', 'doctor'),
+(19, 'nikolascage', 'pcage', 'doctor'),
+(20, 'JohnDoe', 'pDoe', 'doctor'),
+(21, 'JuliaMajch', 'pMajch', 'doctor'),
+(22, '169', 'p169', 'patient'),
+(23, '3211', 'p3211', 'patient'),
+(24, '732', 'p732', 'patient');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `visits`
+--
+
+CREATE TABLE `visits` (
+  `visit_id` int(40) NOT NULL,
+  `amka` int(40) NOT NULL,
+  `doctor` int(20) NOT NULL,
+  `illness` varchar(40) NOT NULL,
+  `checked` varchar(10) NOT NULL,
+  `date` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `visits`
+--
+
+INSERT INTO `visits` (`visit_id`, `amka`, `doctor`, `illness`, `checked`, `date`) VALUES
+(14, 732, 21, 'inflammation', 'false', '2021-01-03 12:40:41.114');
 
 --
 -- Indexes for dumped tables
@@ -103,6 +235,12 @@ ALTER TABLE `employees`
   ADD PRIMARY KEY (`user_id`);
 
 --
+-- Indexes for table `illness`
+--
+ALTER TABLE `illness`
+  ADD PRIMARY KEY (`name`);
+
+--
 -- Indexes for table `nurses`
 --
 ALTER TABLE `nurses`
@@ -116,6 +254,12 @@ ALTER TABLE `patients`
   ADD UNIQUE KEY `amka` (`amka`);
 
 --
+-- Indexes for table `shift`
+--
+ALTER TABLE `shift`
+  ADD PRIMARY KEY (`shift_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -123,14 +267,32 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `username` (`username`);
 
 --
+-- Indexes for table `visits`
+--
+ALTER TABLE `visits`
+  ADD PRIMARY KEY (`visit_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `shift`
+--
+ALTER TABLE `shift`
+  MODIFY `shift_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `user_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT for table `visits`
+--
+ALTER TABLE `visits`
+  MODIFY `visit_id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Constraints for dumped tables

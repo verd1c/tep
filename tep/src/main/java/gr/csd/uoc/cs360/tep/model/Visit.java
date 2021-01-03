@@ -3,12 +3,15 @@ package gr.csd.uoc.cs360.tep.model;
 public class Visit {
 	@Override
 	public String toString() {
-		return "Visit [visitID=" + visitID + ", AMKA=" + AMKA + ", illness=" + illness + ", checked=" + checked + "]";
+		return "Visit [visitID=" + visitID + ", AMKA=" + AMKA + ", doctorID=" + doctorID + ", illness=" + illness
+				+ ", checked=" + checked + ", date=" + date + "]";
 	}
 	private Integer visitID;
 	private Integer AMKA;
+	private Integer doctorID;
 	private String illness;
 	private boolean checked;
+	private String date;
 	
 	public Integer getVisitID() {
 		return visitID;
@@ -33,5 +36,17 @@ public class Visit {
 	}
 	public void setChecked(boolean checked) {
 		this.checked = checked;
+	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
+	public Integer getDoctorID() {
+		return doctorID;
+	}
+	public void setDoctorID(Integer doctorID) {
+		this.doctorID = doctorID;
 	}
 }

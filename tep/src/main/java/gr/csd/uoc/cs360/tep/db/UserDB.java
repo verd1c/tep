@@ -18,6 +18,7 @@ public class UserDB {
         StringBuilder query = new StringBuilder();
 		
 		try {
+			Class.forName("com.mysql.jdbc.Driver");
 			con = TepDB.getConnection();
 			
 			query.append("INSERT INTO ")
@@ -53,7 +54,7 @@ public class UserDB {
         Statement stmt = null;
         Connection con = null;
         try {
-
+        	Class.forName("com.mysql.jdbc.Driver");
             con = TepDB.getConnection();
 
             stmt = con.createStatement();
@@ -81,7 +82,11 @@ public class UserDB {
             // Log exception
             Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
             return null;
-        } finally {
+        } catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		} finally {
             // close connection
 
         }

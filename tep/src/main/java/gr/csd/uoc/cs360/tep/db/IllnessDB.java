@@ -40,4 +40,8 @@ public class IllnessDB {
         	
         }
 	}
+	
+//	public static int assignDoctor(String illness) {
+//		
+//	}
 }

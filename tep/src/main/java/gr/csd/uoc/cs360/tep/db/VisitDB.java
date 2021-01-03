@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,9 +39,11 @@ public class VisitDB {
                 Visit visit = new Visit();
                 
                 visit.setAMKA(res.getInt("AMKA"));
+                visit.setDoctorID(res.getInt("doctor"));
                 visit.setChecked(Boolean.getBoolean(res.getString("checked")));
                 visit.setIllness(res.getString("illness"));
                 visit.setVisitID(res.getInt("visit_id"));
+                visit.setDate(res.getString("date"));
                 
                 visits.add(visit);
             }
@@ -62,12 +66,17 @@ public class VisitDB {
 			Class.forName("com.mysql.jdbc.Driver");
 			con = TepDB.getConnection();
 			
+			Date date = new Date();
+            Timestamp timestamp = new Timestamp(date.getTime());
+			
 			query.append("INSERT INTO ")
-					.append(" visits (AMKA, illness, checked) ")
+					.append(" visits (AMKA, doctor, illness, checked, date) ")
 					.append(" VALUES (")
 					.append("'" + visit.getAMKA() + "',")
+					.append("'" + visit.getDoctorID() + "',")
 					.append("'" + visit.getIllness() + "',")
-					.append("'false');");
+					.append("'false',")
+					.append("'" + timestamp + "');");
 			
 			// Get UserID
 			String generatedColumns[] = {"visit_id"};

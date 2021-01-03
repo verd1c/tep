@@ -11,9 +11,17 @@ public class Patient extends User implements Serializable {
 	private String address;
 	private String institution;
 	private List<String> illnesses;
-	private List<Integer> visits;
+	private List<Visit> visits;
 	
 	
+	public List<Visit> getVisits() {
+		return visits;
+	}
+
+	public void setVisits(List<Visit> visits) {
+		this.visits = visits;
+	}
+
 	public int getAMKA() {
 		return AMKA;
 	}

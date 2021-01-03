@@ -1,9 +1,11 @@
 package gr.csd.uoc.cs360.tep.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import gr.csd.uoc.cs360.tep.db.DoctorDB;
 import gr.csd.uoc.cs360.tep.db.PatientDB;
+import gr.csd.uoc.cs360.tep.db.ShiftDB;
 import gr.csd.uoc.cs360.tep.db.UserDB;
 import gr.csd.uoc.cs360.tep.db.VisitDB;
 
@@ -38,10 +40,31 @@ public class test {
 //		visit.setAMKA(100);
 //		visit.setIllness("fever");
 //		VisitDB.makeVisit(visit);
-		List<Visit> visits = VisitDB.getVisits(100);
-		for(Visit visit : visits) {
-			System.out.println(visit);
-		}
+//		List<Visit> visits = VisitDB.getVisits(100);
+//		for(Visit visit : visits) {
+//			System.out.println(visit);
+//		}
+		
+		
+//		// Make shift
+//		List<User> attendees = new ArrayList<User>();
+//		User johnny = new User();
+//		johnny.setUserID(14);
+//		User bob = new User();
+//		bob.setUserID(17);
+//		User nick = new User();
+//		nick.setUserID(21);
+//		User nik = new User();
+//		nik.setUserID(19);
+//		
+//		attendees.add(johnny);
+//		attendees.add(bob);
+//		attendees.add(nick);
+//		attendees.add(nik);
+//		System.out.println(ShiftDB.updateShift(attendees));
+		
+		System.out.println(ShiftDB.getShiftDoctor("kidneystone"));
+		
 	}
 
 }

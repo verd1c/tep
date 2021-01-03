@@ -1,0 +1,71 @@
+<div class="container-fluid text-center s-patient-profile" id="patientbody">
+    <div class="container" id="patientcont">
+        <p id="welcome"></p>
+        <div class="row justify-content-md-center" style="padding-top: 15px;">
+            <form>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="usernameProfile">Username</label>
+                    <input type="text" class="form-control" id="usernameProfile" disabled="true" placeholder="Username">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="passwordProfile">Password</label>
+                    <input type="text" class="form-control" id="passwordProfile" disabled="true" placeholder="Password">
+                  </div>
+                </div>
+
+
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                      <label for="firstName">First Name</label>
+                      <input type="text" class="form-control" id="firstName" disabled="true" placeholder="First Name">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="lastName">Last Name</label>
+                      <input type="text" class="form-control" id="lastName" disabled="true" placeholder="Last Name">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="amka">AMKA</label>
+                        <input type="text" class="form-control" id="amka" disabled="true" placeholder="AMKA">
+                      </div>
+                  </div>
+
+
+                <div class="form-group">
+                  <label for="address">Address</label>
+                  <input type="text" class="form-control" id="address" disabled="true" placeholder="Address">
+                </div>
+
+                <div class="form-group">
+                    <label for="institution">Institution</label>
+                    <input type="text" class="form-control" id="institution" disabled="true" placeholder="Institution">
+                  </div>
+
+                <input type="button" id="visitBtn" class="btn btn-primary" value="Edit"></input>
+              </form>
+        </div>
+
+        <div class="row justify-content-md-center" style="padding-top: 15px;">
+            <div class="container">
+                <div class="row">
+                  <div class="col-sm">
+                    Past Visits
+                    <div class="list-group" id="visit-list">
+                        
+                    </div>
+                  </div>
+                  <div class="col-sm">
+                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start" id="visitVISITID_H">
+                        <div class="d-flex w-100 justify-content-between">
+                          <h5 class="mb-1" id="illness">ILLNESS_H</h5>
+                          <small id="timestamp">TIMESTAMP_H</small>
+                        </div>
+                        <p class="mb-1" id="text">TEXT_H</p>
+                        <small></small>
+                    </a>
+                  </div>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>

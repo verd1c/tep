@@ -1,0 +1,15 @@
+/* html, body{
+    background-color: cadetblue;
+    height: 100%;
+} */
+
+.list-group{
+    max-height: 300px;
+    margin-bottom: 10px;
+    overflow:scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+#welcome{
+    padding-top: 15px;
+}
