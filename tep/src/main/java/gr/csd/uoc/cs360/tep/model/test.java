@@ -6,6 +6,7 @@ import java.util.List;
 import gr.csd.uoc.cs360.tep.db.DoctorDB;
 import gr.csd.uoc.cs360.tep.db.DrugDB;
 import gr.csd.uoc.cs360.tep.db.ExaminationDB;
+import gr.csd.uoc.cs360.tep.db.NurseDB;
 import gr.csd.uoc.cs360.tep.db.PatientDB;
 import gr.csd.uoc.cs360.tep.db.ShiftDB;
 import gr.csd.uoc.cs360.tep.db.UserDB;
@@ -75,31 +76,36 @@ public class test {
 //		System.out.println(ShiftDB.updateShift(attendees));
 		
 //		System.out.println(DrugDB.getDrug(""));
-		Examination examination = new Examination();
-		examination.setVisitID(26);
-		examination.setAMKA(312);
-		examination.setDoctorID(14);
-		examination.setDiagnosis("Good");
+//		Examination examination = new Examination();
+//		examination.setVisitID(26);
+//		examination.setAMKA(312);
+//		examination.setDoctorID(14);
+//		examination.setDiagnosis("Good");
+//		
+//		List<Prescription> drugs = new ArrayList<>();
+//		Prescription d1 = new Prescription();
+//		d1.setDrug("Tylenol");
+//		Prescription d2 = new Prescription();
+//		d2.setDrug("Ibuprofen");
+//		
+//		drugs.add(d1);
+//		drugs.add(d2);
+//		//examination.setDrugs(drugs);
+//		List<MedicalTest> tests = new ArrayList<>();
+//		MedicalTest t1 = new MedicalTest();
+//		t1.setType("X-Ray");
+//		MedicalTest t2 = new MedicalTest();
+//		t2.setType("Urine Test");
+//		
+//		tests.add(t1);
+//		tests.add(t2);
+//		examination.setTests(tests);
+//		System.out.println(ExaminationDB.addExamination(examination));
 		
-		List<Prescription> drugs = new ArrayList<>();
-		Prescription d1 = new Prescription();
-		d1.setDrug("Tylenol");
-		Prescription d2 = new Prescription();
-		d2.setDrug("Ibuprofen");
-		
-		drugs.add(d1);
-		drugs.add(d2);
-		//examination.setDrugs(drugs);
-		List<MedicalTest> tests = new ArrayList<>();
-		MedicalTest t1 = new MedicalTest();
-		t1.setType("X-Ray");
-		MedicalTest t2 = new MedicalTest();
-		t2.setType("Urine Test");
-		
-		tests.add(t1);
-		tests.add(t2);
-		examination.setTests(tests);
-		System.out.println(ExaminationDB.addExamination(examination));
+		Nurse nurse = new Nurse();
+		nurse.setFirstName("Astrid");
+		nurse.setLastName("Mueler");
+		NurseDB.addNurse(nurse);
 		
 	}
 

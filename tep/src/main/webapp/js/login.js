@@ -9,7 +9,7 @@ function login(){
 
     ajaxRequest('POST', 'http://localhost:8080/tep/login', data, function(o){
         var res = JSON.parse(o.responseText);
-        
+
         if(o.responseText == '{}'){
             $('#loginError').text('Wrong Info');
             $('#loginError').css('color', 'red');
@@ -24,12 +24,17 @@ function login(){
         session.userID = res.userID;
         session.state = states.LOGGED_IN;
         session.page = pages.PROFILE;
+
+        // Load on job
         switch(res.job){
             case 'PATIENT':
                 $('#maincontainer').load('patient.html');
                 break;
             case 'DOCTOR':
                 $('#maincontainer').load('doctor.html');
+                break;
+            case 'NURSE':
+                $('#maincontainer').load('nurse.html');
                 break;
         }
     });

@@ -64,6 +64,36 @@
   	<description></description>
   	<servlet-class>diagnosis</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>allVisits</servlet-name>
+  	<display-name>allVisits</display-name>
+  	<description></description>
+  	<servlet-class>allVisits</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>nurse</servlet-name>
+  	<display-name>nurse</display-name>
+  	<description></description>
+  	<servlet-class>nurse</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>makeTests</servlet-name>
+  	<display-name>makeTests</display-name>
+  	<description></description>
+  	<servlet-class>makeTests</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>hospitalize</servlet-name>
+  	<display-name>hospitalize</display-name>
+  	<description></description>
+  	<servlet-class>hospitalize</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>query</servlet-name>
+  	<display-name>query</display-name>
+  	<description></description>
+  	<servlet-class>query</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>visit</servlet-name>
   	<url-pattern>/visit</url-pattern>
@@ -103,5 +133,25 @@
   <servlet-mapping>
   	<servlet-name>diagnosis</servlet-name>
   	<url-pattern>/diagnosis</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>allVisits</servlet-name>
+  	<url-pattern>/allVisits</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>nurse</servlet-name>
+  	<url-pattern>/nurse</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>makeTests</servlet-name>
+  	<url-pattern>/makeTests</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>hospitalize</servlet-name>
+  	<url-pattern>/hospitalize</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>query</servlet-name>
+  	<url-pattern>/query</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 04, 2021 at 03:14 PM
+-- Generation Time: Jan 04, 2021 at 11:29 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -40,7 +40,10 @@ CREATE TABLE `diagnoses` (
 INSERT INTO `diagnoses` (`diagnoses_id`, `visit_id`, `name`) VALUES
 (1, 15, '\"yes\"'),
 (2, 25, 'heart disease'),
-(4, 17, 'covid');
+(4, 17, 'covid'),
+(5, 24, 'heart disease'),
+(6, 18, 'immune system dysfunction'),
+(7, 20, 'immune system dysfunction');
 
 -- --------------------------------------------------------
 
@@ -159,19 +162,23 @@ CREATE TABLE `examinations` (
   `visit_id` int(20) NOT NULL,
   `amka` int(20) NOT NULL,
   `doctor_id` int(20) NOT NULL,
-  `diagnosis` varchar(40) NOT NULL
+  `diagnosis` varchar(40) NOT NULL,
+  `hospitalized` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `examinations`
 --
 
-INSERT INTO `examinations` (`examination_id`, `visit_id`, `amka`, `doctor_id`, `diagnosis`) VALUES
-(31, 26, 312, 14, 'Good'),
-(35, 14, 732, 21, 'aa'),
-(36, 15, 120, 14, 'aa'),
-(37, 25, 312, 14, 'aa'),
-(38, 17, 100, 19, 'aa');
+INSERT INTO `examinations` (`examination_id`, `visit_id`, `amka`, `doctor_id`, `diagnosis`, `hospitalized`) VALUES
+(31, 26, 312, 14, 'Good', 'false'),
+(35, 14, 732, 21, 'aa', 'false'),
+(36, 15, 120, 14, 'aa', 'false'),
+(37, 25, 312, 14, 'aa', 'false'),
+(38, 17, 100, 19, 'aa', 'false'),
+(39, 24, 312, 14, 'aa', 'true'),
+(40, 18, 100, 20, 'aa', 'false'),
+(41, 20, 100, 20, 'none', 'true');
 
 -- --------------------------------------------------------
 
@@ -214,12 +221,16 @@ CREATE TABLE `medicaltests` (
 --
 
 INSERT INTO `medicaltests` (`medicaltest_id`, `visit_id`, `type`, `completed`) VALUES
-(1, 26, 'X-Ray', 'false'),
-(2, 26, 'Urine Test', 'false'),
 (5, 14, 'none', 'false'),
-(6, 15, 'none', 'false'),
-(7, 25, 'electrocardiogram', 'false'),
-(10, 17, 'covid test', 'true');
+(6, 15, 'none', 'true'),
+(7, 25, 'electrocardiogram', 'true'),
+(10, 17, 'covid test', 'true'),
+(11, 24, 'electrocardiogram', 'true'),
+(12, 18, 'skin biopsy', 'false'),
+(13, 18, 'skin biopsy', 'false'),
+(14, 18, 'skin biopsy', 'false'),
+(15, 18, 'skin biopsy', 'false'),
+(16, 20, 'skin biopsy', 'true');
 
 -- --------------------------------------------------------
 
@@ -232,6 +243,13 @@ CREATE TABLE `nurses` (
   `first_name` varchar(30) NOT NULL,
   `last_name` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `nurses`
+--
+
+INSERT INTO `nurses` (`user_id`, `first_name`, `last_name`) VALUES
+(29, 'Astrid', 'Mueler');
 
 -- --------------------------------------------------------
 
@@ -281,7 +299,12 @@ INSERT INTO `prescriptions` (`prescription_id`, `visit_id`, `drug`) VALUES
 (2, 26, 'Ibuprofen'),
 (3, 26, 'Ibuprofen'),
 (4, 25, 'Aspirin'),
-(6, 17, 'Paracetamol');
+(6, 17, 'Paracetamol'),
+(7, 24, 'Aspirin'),
+(8, 24, 'Blood Thinner'),
+(9, 18, 'Cyclosporine'),
+(10, 18, 'Nemolizumab'),
+(11, 20, 'Cyclosporine');
 
 -- --------------------------------------------------------
 
@@ -394,7 +417,8 @@ INSERT INTO `users` (`user_id`, `username`, `password`, `job`) VALUES
 (24, '732', 'p732', 'patient'),
 (26, 'MariaDong', 'pDong', 'doctor'),
 (27, '120', 'p120', 'patient'),
-(28, '312', 'p312', 'patient');
+(28, '312', 'p312', 'patient'),
+(29, 'AstridMueler', 'pMueler', 'nurse');
 
 -- --------------------------------------------------------
 
@@ -415,7 +439,6 @@ CREATE TABLE `visits` (
 --
 
 INSERT INTO `visits` (`visit_id`, `amka`, `doctor`, `illness`, `date`) VALUES
-(14, 732, 21, 'inflammation', '2021-01-03 12:40:41.114'),
 (15, 120, 14, 'heartache', '2021-01-03 12:55:46.294'),
 (16, 100, 19, 'fever', '2021-01-03 12:56:01.76'),
 (17, 100, 19, 'fever', '2021-01-03 12:56:03.476'),
@@ -426,8 +449,7 @@ INSERT INTO `visits` (`visit_id`, `amka`, `doctor`, `illness`, `date`) VALUES
 (22, 100, 26, 'pain', '2021-01-03 13:00:07.365'),
 (23, 100, 20, 'eczema', '2021-01-03 13:00:11.071'),
 (24, 312, 14, 'heartache', '2021-01-03 13:46:07.674'),
-(25, 312, 14, 'heartache', '2021-01-03 13:46:08.338'),
-(26, 312, 14, 'heartache', '2021-01-03 13:46:09.522');
+(25, 312, 14, 'heartache', '2021-01-03 13:46:08.338');
 
 --
 -- Indexes for dumped tables
@@ -535,7 +557,7 @@ ALTER TABLE `visits`
 -- AUTO_INCREMENT for table `diagnoses`
 --
 ALTER TABLE `diagnoses`
-  MODIFY `diagnoses_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `diagnoses_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `diagnosis`
@@ -553,19 +575,19 @@ ALTER TABLE `drugs`
 -- AUTO_INCREMENT for table `examinations`
 --
 ALTER TABLE `examinations`
-  MODIFY `examination_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `examination_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `medicaltests`
 --
 ALTER TABLE `medicaltests`
-  MODIFY `medicaltest_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `medicaltest_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `prescriptions`
 --
 ALTER TABLE `prescriptions`
-  MODIFY `prescription_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `prescription_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `shift`
@@ -583,7 +605,7 @@ ALTER TABLE `tests`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `user_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `visits`

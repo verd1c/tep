@@ -23,4 +23,8 @@ public class MedicalTest {
 	public void setCompleted(boolean completed) {
 		this.completed = completed;
 	}
+	@Override
+	public String toString() {
+		return "MedicalTest [visitID=" + visitID + ", type=" + type + ", completed=" + completed + "]";
+	}
 }

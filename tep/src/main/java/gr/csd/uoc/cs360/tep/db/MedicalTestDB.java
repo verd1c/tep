@@ -84,4 +84,36 @@ public class MedicalTestDB {
 
         return tests;
 	}
+	
+	public static void completeTest(int visit_id) {
+		// Check that we have all we need
+
+        Statement stmt = null;
+        Connection con = null;
+        try {
+        	Class.forName("com.mysql.jdbc.Driver");
+            con = TepDB.getConnection();
+            stmt = con.createStatement();
+
+            StringBuilder insQuery = new StringBuilder();
+
+            insQuery.append("UPDATE medicaltests ")
+                    .append(" SET ")
+                    .append(" completed = ").append("'true'")
+                    .append(" WHERE visit_id= ").append("'").append(visit_id).append("';");
+
+            stmt.executeUpdate(insQuery.toString());
+
+
+        } catch (SQLException ex) {
+            // Log exception
+            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+            // close connection
+
+        }
+	}
 }

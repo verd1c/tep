@@ -8,6 +8,7 @@ public class Examination {
 	private Integer AMKA;
 	private Integer doctorID;
 	private String diagnosis;
+	private Boolean hospitalized;
 	private List<Drug> drugs;
 	private List<MedicalTest> tests;
 	
@@ -56,6 +57,13 @@ public class Examination {
 	@Override
 	public String toString() {
 		return "Examination [examinationID=" + examinationID + ", visitID=" + visitID + ", AMKA=" + AMKA + ", doctorID="
-				+ doctorID + ", diagnosis=" + diagnosis + ", drugs=" + drugs + ", tests=" + tests + "]";
+				+ doctorID + ", diagnosis=" + diagnosis + ", hospitalized=" + hospitalized + ", drugs=" + drugs
+				+ ", tests=" + tests + "]";
+	}
+	public boolean isHospitalized() {
+		return hospitalized;
+	}
+	public void setHospitalized(boolean hospitalized) {
+		this.hospitalized = hospitalized;
 	}
 }

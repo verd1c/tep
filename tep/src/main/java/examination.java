@@ -52,7 +52,7 @@ public class examination extends HttpServlet {
 		// Create examination
 		Examination examination = new Examination();
 		examination.setVisitID(Integer.parseInt(request.getParameter("visit_id")));
-		examination.setDiagnosis("aa");
+		examination.setDiagnosis("none");
 		examination.setAMKA(Integer.parseInt(request.getParameter("amka")));
 		examination.setDoctorID(Integer.parseInt(request.getParameter("doctor_id")));
 		

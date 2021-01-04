@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>TEP</title>
+        <title>ER</title>
 
         <link rel="stylesheet" href="style/style.css">
         <meta charset="utf-8">
@@ -14,27 +14,69 @@
 
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">TEP</a>
+            <a class="navbar-brand" href="#">Emergency Room</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
           
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                  <a class="nav-link" href="#">Visit <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">COVID-19 Report <span class="sr-only">(current)</span></a>
-                </li>
               </ul>
 
               <form class="form-inline my-2 my-lg-0">
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#sqlModal" id="sqlBtn">SQL</button>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="lgnBtn">Login</button>
                 <button type="button" class="btn btn-danger" id="logoutBtn">Logout</button>
               </form>
             </div>
         </nav>
+
+        <!-- SQL Modal -->
+        <div class="modal" id="sqlModal">
+            <div class="modal-dialog">
+            <div class="modal-content">
+            
+                <!-- Modal Header -->
+                <div class="modal-header">
+                <h4 class="modal-title">SQL Query</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <input type="text" id="query" class="form-control" required placeholder="Query">
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top: 20px;">
+                        <div class="col">
+                            <button type="button" class="btn btn-danger btn-mc" id="visitStatusBtn">Visits</button>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-danger btn-mc" id="statisticsBtn">Statistics</button>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-danger btn-mc" id="covidBtn">COVID</button>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-danger btn-mc" id="shiftsBtn">Shifts</button>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top: 20px;">
+                        <ul class="list-group" id="queryList" style="float: center; margin: 0 auto;">
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="executeBtn">Execute</button>
+                </div>
+                
+            </div>
+            </div>
+        </div>
 
         <!-- The Modal -->
         <div class="modal" id="myModal">
@@ -57,6 +99,7 @@
                             <input type="password" id="password" class="form-control" required placeholder="Password">
                         </div>
                     </div>
+
                     <h5 id="loginError"></h5>
                 </div>
                 
@@ -77,6 +120,7 @@
 
         <!-- Scripts -->
         <script src="js/ajaxRequest.js"></script>
+        <script src="js/query.js"></script>
         <script src="js/render.js"></script>
         <script src="js/visit.js"></script>
         <script src="js/login.js"></script>

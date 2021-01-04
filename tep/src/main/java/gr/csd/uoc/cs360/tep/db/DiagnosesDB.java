@@ -60,7 +60,7 @@ public class DiagnosesDB {
             stmt.execute(insQuery.toString());
 
             ResultSet res = stmt.getResultSet();
-
+            
             if (res.next() == true) {
             	diagnosis = new Diagnosis();
                 

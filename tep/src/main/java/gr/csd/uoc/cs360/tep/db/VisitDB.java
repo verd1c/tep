@@ -139,5 +139,46 @@ public class VisitDB {
 
         return visits;
 	}
+	
+	public static List<Visit> getAllVisits(){
+		List<Visit> visits = new ArrayList<>();
+		Statement stmt = null;
+        Connection con = null;
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+            con = TepDB.getConnection();
+            stmt = con.createStatement();
+
+            StringBuilder insQuery = new StringBuilder();
+
+            insQuery.append("SELECT * FROM visits;");
+
+            stmt.execute(insQuery.toString());
+
+            ResultSet res = stmt.getResultSet();
+
+            while (res.next() == true) {
+                Visit visit = new Visit();
+                
+                visit.setVisitID(res.getInt("visit_id"));
+                visit.setAMKA(res.getInt("AMKA"));
+                visit.setDoctorID(res.getInt("doctor"));
+                visit.setIllness(res.getString("illness"));
+                visit.setDate(res.getString("date"));
+                visit.setFirstName(PatientDB.getFirstName(visit.getAMKA()));
+                visit.setLastName(PatientDB.getLastName(visit.getAMKA()));
+                
+                visits.add(visit);
+            }
+
+        } catch (SQLException | ClassNotFoundException ex) {
+            // Log exception
+            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+        }
+
+        return visits;
+	}
 
 }
