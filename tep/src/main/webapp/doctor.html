@@ -1,0 +1,114 @@
+<div class="container-fluid text-center s-doctor-profile" id="doctorbody">
+    <div class="container" id="patientcont">
+        <p id="welcome"></p>
+        <div class="row justify-content-md-center" style="padding-top: 15px;">
+            <form>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="usernameProfile">Username</label>
+                    <input type="text" class="form-control" id="usernameProfile" disabled="true" placeholder="Username">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="passwordProfile">Password</label>
+                    <input type="text" class="form-control" id="passwordProfile" disabled="true" placeholder="Password">
+                  </div>
+                </div>
+
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="firstName">First Name</label>
+                      <input type="text" class="form-control" id="firstName" disabled="true" placeholder="First Name">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="lastName">Last Name</label>
+                      <input type="text" class="form-control" id="lastName" disabled="true" placeholder="Last Name">
+                    </div>
+                </div>
+
+                  <div class="form-group">
+                    <label for="specialization">Specialization</label>
+                    <input type="text" class="form-control" id="specialization" disabled="true" placeholder="Specialization">
+                  </div>
+
+                <input type="button" id="visitBtn" class="btn btn-primary" value="Edit"></input>
+              </form>
+        </div>
+
+        <div class="row justify-content-md-center" style="padding-top: 15px;">
+            <div class="container">
+                <div class="row">
+                  <div class="col-sm">
+                    Pending Patients
+                    <div class="list-group" id="visit-list">
+                    </div>
+                  </div>
+                  <div class="col-sm">
+                    <a class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                          <h5 class="mb-1" id="illness"></h5>
+                          <small id="timestamp"></small>
+                        </div>
+                        <div class="mb-1" id="displayvisit"></div>
+
+                        <!-- Select Examination -->
+                        <div class="mb-1" id="selectExam">
+                            <div class="form-row">
+                                <!-- Drug -->
+                                <div class="form-group col-md-6">
+                                    <label for="drugSelect">Prescribe a Drug</label>
+                                    <select class="form-control" id="drugSelect">
+                                    </select>
+                                    <input type="button" style="padding-top: 10px;" id="prescribeBtn" class="btn btn-danger" value="Prescribe"></input>
+                                </div>
+
+                                <!-- Test -->
+                                <div class="form-group col-md-6">
+                                    <label for="testSelect">Appoint a test</label>
+                                    <select class="form-control" id="testSelect">
+                                      <option value="none" selected>None</option>
+                                    </select>
+                                    <input type="button" style="padding-top: 10px;" id="appointBtn" class="btn btn-danger" value="Appoint"></input>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                              <!-- Diagnosis Note -->
+                              <label for="diagnosisSelect">Select a Diagnosis</label>
+                              <select class="form-control" id="diagnosisSelect">
+                              </select>
+                            </div>
+
+                            <div class="form-group">
+                              <input type="button" style="padding-top: 10px;" id="examBtn" class="btn btn-info" value="Examine"></input>
+                            </div>
+                        </div>
+
+                        <!-- Show Examination -->
+                        <div class="mb-1" id="showExam">
+                          <p class="mb-1" id="diagnosisResult"></p>
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <p class="mb-1">The following drugs were prescribed:</p>
+                              <div class="mb-1 list-group" id="drug-list">
+                              </div>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                              <p class="mb-1">The following tests were appointed:</p>
+                              <div class="mb-1 list-group" id="test-list">
+                              </div>
+                            </div>
+                          </div>
+                          <p class="mb-1" id="visitStatus"></p>
+                          <div class="form-group">
+                            <input type="button" style="padding-top: 10px;" id="hospitalizeBtn" class="btn btn-info" value="Hospitalize"></input>
+                          </div>
+                        </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>

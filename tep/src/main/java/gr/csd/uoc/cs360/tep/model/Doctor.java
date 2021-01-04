@@ -1,10 +1,12 @@
 package gr.csd.uoc.cs360.tep.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Doctor extends User implements Serializable {
 	private String firstName;
 	private String lastName;
+	private List<Visit> visits;
 	private Specialization specialization;
 	
 	/**
@@ -76,5 +78,13 @@ public class Doctor extends User implements Serializable {
 	@Override
 	public String toString() {
 		return "Doctor [firstName=" + firstName + ", lastName=" + lastName + ", specialization=" + specialization + "]";
+	}
+
+	public List<Visit> getVisits() {
+		return visits;
+	}
+
+	public void setVisits(List<Visit> visits) {
+		this.visits = visits;
 	}
 }

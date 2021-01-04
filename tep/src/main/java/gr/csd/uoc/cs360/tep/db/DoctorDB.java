@@ -109,6 +109,7 @@ public class DoctorDB {
             	doctor.setFirstName(res.getString("first_name"));
             	doctor.setLastName(res.getString("last_name"));
             	doctor.setSpecialization(res.getString("specialization"));
+            	doctor.setVisits(VisitDB.getVisitsByDoctor(doctor.getUserID()));
             } else {
                 System.out.println("User was not found");
             }

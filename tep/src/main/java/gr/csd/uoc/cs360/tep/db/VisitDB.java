@@ -40,10 +40,10 @@ public class VisitDB {
                 
                 visit.setAMKA(res.getInt("AMKA"));
                 visit.setDoctorID(res.getInt("doctor"));
-                visit.setChecked(Boolean.getBoolean(res.getString("checked")));
                 visit.setIllness(res.getString("illness"));
                 visit.setVisitID(res.getInt("visit_id"));
                 visit.setDate(res.getString("date"));
+                visit.setDoctor(DoctorDB.getDoctor(visit.getDoctorID()));
                 
                 visits.add(visit);
             }
@@ -70,12 +70,11 @@ public class VisitDB {
             Timestamp timestamp = new Timestamp(date.getTime());
 			
 			query.append("INSERT INTO ")
-					.append(" visits (AMKA, doctor, illness, checked, date) ")
+					.append(" visits (AMKA, doctor, illness, date) ")
 					.append(" VALUES (")
 					.append("'" + visit.getAMKA() + "',")
 					.append("'" + visit.getDoctorID() + "',")
 					.append("'" + visit.getIllness() + "',")
-					.append("'false',")
 					.append("'" + timestamp + "');");
 			
 			// Get UserID
@@ -98,6 +97,47 @@ public class VisitDB {
 			
 		}
 		return visit;
+	}
+	
+	public static List<Visit> getVisitsByDoctor(int user_id){
+		List<Visit> visits = new ArrayList<>();
+		Statement stmt = null;
+        Connection con = null;
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+            con = TepDB.getConnection();
+            stmt = con.createStatement();
+
+            StringBuilder insQuery = new StringBuilder();
+
+            insQuery.append("SELECT * FROM visits WHERE doctor = '" + user_id + "';");
+
+            stmt.execute(insQuery.toString());
+
+            ResultSet res = stmt.getResultSet();
+
+            while (res.next() == true) {
+                Visit visit = new Visit();
+                
+                visit.setAMKA(res.getInt("AMKA"));
+                visit.setDoctorID(res.getInt("doctor"));
+                visit.setIllness(res.getString("illness"));
+                visit.setVisitID(res.getInt("visit_id"));
+                visit.setDate(res.getString("date"));
+                visit.setFirstName(PatientDB.getFirstName(visit.getAMKA()));
+                visit.setLastName(PatientDB.getLastName(visit.getAMKA()));
+                
+                visits.add(visit);
+            }
+
+        } catch (SQLException | ClassNotFoundException ex) {
+            // Log exception
+            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+        }
+
+        return visits;
 	}
 
 }

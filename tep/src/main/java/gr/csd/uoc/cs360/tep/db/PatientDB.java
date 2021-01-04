@@ -141,5 +141,81 @@ public class PatientDB {
 	        
 	        return patient;
 		}
+	
+	public static String getFirstName(int AMKA) {
+		String name = null;
+		Statement statement = null;
+	    Connection con = null;
+	    StringBuilder query = new StringBuilder();
+	        
+	    try {
+	        Class.forName("com.mysql.jdbc.Driver");
+	        con = TepDB.getConnection();
+	        	
+	        	statement = con.createStatement();
+	        	
+	        	query.append("SELECT * FROM patients")
+	        		.append(" WHERE amka = '")
+	        		.append(AMKA)
+	        		.append("';");
+	        	statement.execute(query.toString());
+	        	ResultSet res = statement.getResultSet();
+
+	        	if(res.next()) {
+	        		name = res.getString("first_name");
+	        		
+	        	}else {
+	        		System.out.println("Patient not found");
+	        	}
+	        	
+	        }catch(SQLException ex) {
+	        	System.out.println("Exception " + ex);
+	        } catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+	        	
+	        }
+	        
+	        return name;
+	}
+	
+	public static String getLastName(int AMKA) {
+		String name = null;
+		Statement statement = null;
+	    Connection con = null;
+	    StringBuilder query = new StringBuilder();
+	        
+	    try {
+	        Class.forName("com.mysql.jdbc.Driver");
+	        con = TepDB.getConnection();
+	        	
+	        	statement = con.createStatement();
+	        	
+	        	query.append("SELECT * FROM patients")
+	        		.append(" WHERE amka = '")
+	        		.append(AMKA)
+	        		.append("';");
+	        	statement.execute(query.toString());
+	        	ResultSet res = statement.getResultSet();
+
+	        	if(res.next()) {
+	        		name = res.getString("last_name");
+	        		
+	        	}else {
+	        		System.out.println("Patient not found");
+	        	}
+	        	
+	        }catch(SQLException ex) {
+	        	System.out.println("Exception " + ex);
+	        } catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				// close connection 
+	        }
+	        
+	        return name;
+	}
 		
 }

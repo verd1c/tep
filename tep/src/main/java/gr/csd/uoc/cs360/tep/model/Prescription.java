@@ -1,21 +1,21 @@
 package gr.csd.uoc.cs360.tep.model;
 
-public class Diagnosis {
+import java.util.List;
+
+public class Prescription {
 	private Integer visitID;
-	private String name;
+	private String drug;
 	
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
 	public Integer getVisitID() {
 		return visitID;
 	}
 	public void setVisitID(Integer visitID) {
 		this.visitID = visitID;
 	}
-	
-	
+	public String getDrug() {
+		return drug;
+	}
+	public void setDrug(String drug) {
+		this.drug = drug;
+	}
 }

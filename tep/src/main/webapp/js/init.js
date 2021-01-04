@@ -45,6 +45,18 @@ $(document).on('DOMNodeInserted', function(e){
     }
 });
 
+$(document).on('DOMNodeInserted', function(e){
+    if($(e.target).hasClass('s-doctor-profile')){
+        var data = new FormData();
+        data.append('user_id', session.userID);
+        
+        ajaxRequest('GET', 'http://localhost:8080/tep/doctor', data, function(o){
+            var res = JSON.parse(o.responseText);
+            renderDoctor(res);
+        });
+    }
+});
+
 $('#loginBtn').on('click', login);
 $('#logoutBtn').on('click', logout);
 $('#logoutBtn').css('display', 'none');

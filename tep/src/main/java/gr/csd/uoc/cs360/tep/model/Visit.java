@@ -7,8 +7,11 @@ public class Visit {
 				+ ", checked=" + checked + ", date=" + date + "]";
 	}
 	private Integer visitID;
+	private String firstName;
+	private String lastName;
 	private Integer AMKA;
 	private Integer doctorID;
+	private Doctor doctor;
 	private String illness;
 	private boolean checked;
 	private String date;
@@ -48,5 +51,23 @@ public class Visit {
 	}
 	public void setDoctorID(Integer doctorID) {
 		this.doctorID = doctorID;
+	}
+	public Doctor getDoctor() {
+		return doctor;
+	}
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
+	}
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 }

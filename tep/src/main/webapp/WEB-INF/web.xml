@@ -40,6 +40,30 @@
   	<description></description>
   	<servlet-class>patient</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>doctor</servlet-name>
+  	<display-name>doctor</display-name>
+  	<description></description>
+  	<servlet-class>doctor</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>drug</servlet-name>
+  	<display-name>drug</display-name>
+  	<description></description>
+  	<servlet-class>drug</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>test</servlet-name>
+  	<display-name>test</display-name>
+  	<description></description>
+  	<servlet-class>test</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>diagnosis</servlet-name>
+  	<display-name>diagnosis</display-name>
+  	<description></description>
+  	<servlet-class>diagnosis</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>visit</servlet-name>
   	<url-pattern>/visit</url-pattern>
@@ -63,5 +87,21 @@
   <servlet-mapping>
   	<servlet-name>patient</servlet-name>
   	<url-pattern>/patient</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>doctor</servlet-name>
+  	<url-pattern>/doctor</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>drug</servlet-name>
+  	<url-pattern>/drug</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>test</servlet-name>
+  	<url-pattern>/test</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>diagnosis</servlet-name>
+  	<url-pattern>/diagnosis</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -72,7 +72,13 @@ public class visit extends HttpServlet {
 		Visit visit = new Visit();
 		
 		visit.setAMKA(Integer.parseInt(request.getParameter("amka")));
-		visit.setIllness(request.getParameter("illness").toLowerCase());
+		if(request.getParameter("illness").toLowerCase().equals("general pain")) {
+			visit.setIllness("pain");
+		}else if(request.getParameter("illness").toLowerCase().equals("kidney stone")){
+			visit.setIllness("kidneystone");
+		}else{
+			visit.setIllness(request.getParameter("illness").toLowerCase());
+		}
 		visit.setDoctorID(ShiftDB.getShiftDoctor(visit.getIllness().toLowerCase()).getUserID());
 		VisitDB.makeVisit(visit);
 	}
