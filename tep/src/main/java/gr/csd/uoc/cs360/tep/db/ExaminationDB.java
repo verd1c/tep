@@ -30,13 +30,15 @@ public class ExaminationDB {
 			con = TepDB.getConnection();
 			
 			query.append("INSERT INTO ")
-					.append(" examinations (visit_id, amka, doctor_id, diagnosis, hospitalized) ")
+					.append(" examinations (visit_id, amka, doctor_id, diagnosis, hospitalized, note) ")
 					.append(" VALUES (")
 					.append("'" + examination.getVisitID() + "',")
 					.append("'" + examination.getAMKA() + "',")
 					.append("'" + examination.getDoctorID() + "',")
 					.append("'" + examination.getDiagnosis() + "',")
-					.append("'false');");
+					.append("'false',")
+					.append("'none');");
+			
 			
 			// Get ExaminationID
 			String generatedColumns[] = {"examination_id"};
@@ -104,6 +106,7 @@ public class ExaminationDB {
         		examination.setVisitID(res.getInt("visit_id"));
         		examination.setAMKA(res.getInt("amka"));
         		examination.setHospitalized(Boolean.parseBoolean(res.getString("hospitalized")));
+        		examination.setNote(res.getString("note"));
         		examination.setDoctorID(res.getInt("doctor_id"));
         		String dg = DiagnosesDB.getDiagnosisByVisit(visit_id).getName();
         		if(dg != null) examination.setDiagnosis(dg);
@@ -164,4 +167,35 @@ public class ExaminationDB {
         }
 	}
 	
+	public static void setNote(String note, int visit_id) {
+		// Check that we have all we need
+
+        Statement stmt = null;
+        Connection con = null;
+        try {
+        	Class.forName("com.mysql.jdbc.Driver");
+            con = TepDB.getConnection();
+            stmt = con.createStatement();
+
+            StringBuilder insQuery = new StringBuilder();
+
+            insQuery.append("UPDATE examinations ")
+                    .append(" SET ")
+                    .append(" note = ").append("'" + note + "'")
+                    .append(" WHERE visit_id= ").append("'").append(visit_id).append("';");
+
+            stmt.executeUpdate(insQuery.toString());
+
+
+        } catch (SQLException ex) {
+            // Log exception
+            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+            // close connection
+
+        }
+	}
 }

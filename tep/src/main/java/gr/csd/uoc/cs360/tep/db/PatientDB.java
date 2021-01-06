@@ -7,6 +7,8 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import gr.csd.uoc.cs360.tep.model.Patient;
 import gr.csd.uoc.cs360.tep.model.Visit;
@@ -216,6 +218,41 @@ public class PatientDB {
 	        }
 	        
 	        return name;
+	}
+	
+	public static void updatePatient(Patient patient) {
+		// Check that we have all we need
+
+        Statement stmt = null;
+        Connection con = null;
+        try {
+        	Class.forName("com.mysql.jdbc.Driver");
+            con = TepDB.getConnection();
+            stmt = con.createStatement();
+
+            StringBuilder insQuery = new StringBuilder();
+
+            insQuery.append("UPDATE patients ")
+                    .append(" SET ")
+                    .append(" first_name = ").append("'" + patient.getFirstName() + "',")
+                    .append(" last_name = ").append("'" + patient.getLastName() + "',")
+                    .append(" address = ").append("'" + patient.getAddress() + "',")
+                    .append(" institution = ").append("'" + patient.getInstitution() + "'")
+                    .append(" WHERE user_id= ").append("'").append(patient.getUserID()).append("';");
+
+            stmt.executeUpdate(insQuery.toString());
+
+
+        } catch (SQLException ex) {
+            // Log exception
+            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+            // close connection
+
+        }
 	}
 		
 }

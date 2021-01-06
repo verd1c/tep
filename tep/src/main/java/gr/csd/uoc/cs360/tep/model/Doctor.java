@@ -9,6 +9,10 @@ public class Doctor extends User implements Serializable {
 	private List<Visit> visits;
 	private Specialization specialization;
 	
+	public Doctor() {
+		this.setJob("doctor");
+	}
+	
 	/**
      * Enum for supporting job values
      */

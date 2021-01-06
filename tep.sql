@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 04, 2021 at 11:29 PM
+-- Generation Time: Jan 06, 2021 at 02:46 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -43,7 +43,11 @@ INSERT INTO `diagnoses` (`diagnoses_id`, `visit_id`, `name`) VALUES
 (4, 17, 'covid'),
 (5, 24, 'heart disease'),
 (6, 18, 'immune system dysfunction'),
-(7, 20, 'immune system dysfunction');
+(7, 20, 'immune system dysfunction'),
+(8, 27, 'covid'),
+(9, 23, 'immune system dysfunction'),
+(13, 28, 'heart disease'),
+(14, 29, 'arthritis');
 
 -- --------------------------------------------------------
 
@@ -91,7 +95,7 @@ INSERT INTO `doctors` (`user_id`, `first_name`, `last_name`, `specialization`) V
 (17, 'Bob', 'Marley', 'Surgeon'),
 (18, 'Nick', 'Takeo', 'Surgeon'),
 (19, 'Nikolas', 'Cage', 'General'),
-(20, 'John', 'Doe', 'Dermatologist'),
+(20, 'John', 'Doestar', 'Dermatologist'),
 (21, 'Julia', 'Majch', 'Allergist'),
 (26, 'Maria', 'Dong', 'Anesthesiologist');
 
@@ -147,9 +151,16 @@ INSERT INTO `drugs` (`drug_id`, `name`, `type`, `density`, `target`) VALUES
 
 CREATE TABLE `employees` (
   `user_id` int(20) NOT NULL,
-  `first_name` int(30) NOT NULL,
-  `last_name` int(30) NOT NULL
+  `first_name` varchar(30) NOT NULL,
+  `last_name` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `employees`
+--
+
+INSERT INTO `employees` (`user_id`, `first_name`, `last_name`) VALUES
+(33, 'Josh', 'Wa');
 
 -- --------------------------------------------------------
 
@@ -163,22 +174,26 @@ CREATE TABLE `examinations` (
   `amka` int(20) NOT NULL,
   `doctor_id` int(20) NOT NULL,
   `diagnosis` varchar(40) NOT NULL,
-  `hospitalized` varchar(40) NOT NULL
+  `hospitalized` varchar(40) NOT NULL,
+  `note` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `examinations`
 --
 
-INSERT INTO `examinations` (`examination_id`, `visit_id`, `amka`, `doctor_id`, `diagnosis`, `hospitalized`) VALUES
-(31, 26, 312, 14, 'Good', 'false'),
-(35, 14, 732, 21, 'aa', 'false'),
-(36, 15, 120, 14, 'aa', 'false'),
-(37, 25, 312, 14, 'aa', 'false'),
-(38, 17, 100, 19, 'aa', 'false'),
-(39, 24, 312, 14, 'aa', 'true'),
-(40, 18, 100, 20, 'aa', 'false'),
-(41, 20, 100, 20, 'none', 'true');
+INSERT INTO `examinations` (`examination_id`, `visit_id`, `amka`, `doctor_id`, `diagnosis`, `hospitalized`, `note`) VALUES
+(31, 26, 312, 14, 'Good', 'false', 'Good state'),
+(35, 14, 732, 21, 'aa', 'false', 'none'),
+(36, 15, 120, 14, 'aa', 'true', 'Drugs given'),
+(37, 25, 312, 14, 'aa', 'false', 'none'),
+(38, 17, 100, 19, 'aa', 'false', 'none'),
+(39, 24, 312, 14, 'aa', 'true', 'none'),
+(40, 18, 100, 20, 'aa', 'true', 'Has covid'),
+(41, 20, 100, 20, 'none', 'true', 'Good state'),
+(42, 27, 152, 19, 'none', 'false', 'none'),
+(43, 28, 999, 14, 'none', 'false', 'Too many big macs'),
+(44, 29, 99, 26, 'none', 'true', 'Was fine');
 
 -- --------------------------------------------------------
 
@@ -226,11 +241,16 @@ INSERT INTO `medicaltests` (`medicaltest_id`, `visit_id`, `type`, `completed`) V
 (7, 25, 'electrocardiogram', 'true'),
 (10, 17, 'covid test', 'true'),
 (11, 24, 'electrocardiogram', 'true'),
-(12, 18, 'skin biopsy', 'false'),
-(13, 18, 'skin biopsy', 'false'),
-(14, 18, 'skin biopsy', 'false'),
-(15, 18, 'skin biopsy', 'false'),
-(16, 20, 'skin biopsy', 'true');
+(12, 18, 'skin biopsy', 'true'),
+(13, 18, 'skin biopsy', 'true'),
+(14, 18, 'skin biopsy', 'true'),
+(15, 18, 'skin biopsy', 'true'),
+(16, 20, 'skin biopsy', 'true'),
+(17, 27, 'covid test', 'true'),
+(18, 23, 'skin biopsy', 'false'),
+(21, 28, 'electrocardiogram', 'true'),
+(22, 28, 'electrocardiogram', 'true'),
+(23, 29, 'xray', 'true');
 
 -- --------------------------------------------------------
 
@@ -273,10 +293,13 @@ CREATE TABLE `patients` (
 INSERT INTO `patients` (`user_id`, `amka`, `first_name`, `last_name`, `address`, `institution`) VALUES
 (15, 100, 'Aimee', 'Marchand', 'Deutschland', 'Ayaya'),
 (22, 169, 'Jason', 'Derulo', 'Desesaas', 'Aaaaa'),
-(23, 3211, 'Poly', 'Forest', 'Axaxa', 'Idk'),
+(23, 3211, 'Polymorph', 'Forest', 'Axaxaaxaxaxaxsxaasdds', 'Idk lol'),
 (24, 732, 'Jules', 'Uwu', 'Waw', 'Wow'),
 (27, 120, 'Bobby', 'Shmurda', 'Black', 'Ahah'),
-(28, 312, 'Bolber', 'Mohamms', 'Hallel', 'Usjan');
+(28, 312, 'Bolber', 'Mohamms', 'Hallel', 'Usjan'),
+(30, 152, 'Jareed', 'Keren', 'Halum', 'Salem'),
+(31, 999, 'Big', 'Mac', 'Narnia', 'Lol'),
+(34, 99, 'Jason', 'Manthos', 'Heraklion', 'Poggies');
 
 -- --------------------------------------------------------
 
@@ -304,7 +327,13 @@ INSERT INTO `prescriptions` (`prescription_id`, `visit_id`, `drug`) VALUES
 (8, 24, 'Blood Thinner'),
 (9, 18, 'Cyclosporine'),
 (10, 18, 'Nemolizumab'),
-(11, 20, 'Cyclosporine');
+(11, 20, 'Cyclosporine'),
+(12, 27, 'Paracetamol'),
+(13, 27, 'Tylenol'),
+(14, 23, 'Azathioprine'),
+(17, 28, 'Aspirin'),
+(18, 29, 'Lidocaine'),
+(19, 29, 'Naproxen');
 
 -- --------------------------------------------------------
 
@@ -325,7 +354,12 @@ INSERT INTO `shift` (`shift_id`, `since`) VALUES
 (1, '2021-01-03 12:09:35.431'),
 (2, '2021-01-03 12:10:21.822'),
 (3, '2021-01-03 12:12:28.683'),
-(4, '2021-01-03 12:54:43.913');
+(4, '2021-01-03 12:54:43.913'),
+(5, '2021-01-05 11:14:07.801'),
+(6, '2021-01-05 11:17:36.309'),
+(7, '2021-01-05 11:24:48.133'),
+(8, '2021-01-05 14:36:10.393'),
+(9, '2021-01-05 14:42:42.923');
 
 -- --------------------------------------------------------
 
@@ -361,7 +395,49 @@ INSERT INTO `shift_attendee` (`shift_id`, `user_id`) VALUES
 (4, 18),
 (4, 19),
 (4, 20),
-(4, 26);
+(4, 26),
+(5, 14),
+(5, 17),
+(5, 21),
+(5, 18),
+(5, 19),
+(5, 20),
+(5, 26),
+(5, 29),
+(6, 14),
+(6, 17),
+(6, 21),
+(6, 18),
+(6, 19),
+(6, 20),
+(6, 26),
+(6, 29),
+(7, 14),
+(7, 17),
+(7, 21),
+(7, 18),
+(7, 19),
+(7, 20),
+(7, 26),
+(7, 29),
+(8, 14),
+(8, 17),
+(8, 21),
+(8, 18),
+(8, 19),
+(8, 20),
+(8, 26),
+(8, 29),
+(8, 33),
+(9, 14),
+(9, 17),
+(9, 21),
+(9, 18),
+(9, 19),
+(9, 20),
+(9, 26),
+(9, 29),
+(9, 33);
 
 -- --------------------------------------------------------
 
@@ -418,7 +494,11 @@ INSERT INTO `users` (`user_id`, `username`, `password`, `job`) VALUES
 (26, 'MariaDong', 'pDong', 'doctor'),
 (27, '120', 'p120', 'patient'),
 (28, '312', 'p312', 'patient'),
-(29, 'AstridMueler', 'pMueler', 'nurse');
+(29, 'AstridMueler', 'pMueler', 'nurse'),
+(30, '152', 'p152', 'patient'),
+(31, '999', 'p999', 'patient'),
+(33, 'JoshWa', 'pWa', 'employee'),
+(34, '99', 'p99', 'patient');
 
 -- --------------------------------------------------------
 
@@ -449,7 +529,10 @@ INSERT INTO `visits` (`visit_id`, `amka`, `doctor`, `illness`, `date`) VALUES
 (22, 100, 26, 'pain', '2021-01-03 13:00:07.365'),
 (23, 100, 20, 'eczema', '2021-01-03 13:00:11.071'),
 (24, 312, 14, 'heartache', '2021-01-03 13:46:07.674'),
-(25, 312, 14, 'heartache', '2021-01-03 13:46:08.338');
+(25, 312, 14, 'heartache', '2021-01-03 13:46:08.338'),
+(27, 152, 19, 'fever', '2021-01-05 07:54:54.964'),
+(28, 999, 14, 'heartache', '2021-01-05 10:49:24.366'),
+(29, 99, 26, 'pain', '2021-01-05 14:44:42.849');
 
 --
 -- Indexes for dumped tables
@@ -557,7 +640,7 @@ ALTER TABLE `visits`
 -- AUTO_INCREMENT for table `diagnoses`
 --
 ALTER TABLE `diagnoses`
-  MODIFY `diagnoses_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `diagnoses_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `diagnosis`
@@ -575,25 +658,25 @@ ALTER TABLE `drugs`
 -- AUTO_INCREMENT for table `examinations`
 --
 ALTER TABLE `examinations`
-  MODIFY `examination_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `examination_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `medicaltests`
 --
 ALTER TABLE `medicaltests`
-  MODIFY `medicaltest_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `medicaltest_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `prescriptions`
 --
 ALTER TABLE `prescriptions`
-  MODIFY `prescription_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `prescription_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `shift`
 --
 ALTER TABLE `shift`
-  MODIFY `shift_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `shift_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tests`
@@ -605,13 +688,13 @@ ALTER TABLE `tests`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `user_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `visits`
 --
 ALTER TABLE `visits`
-  MODIFY `visit_id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `visit_id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- Constraints for dumped tables

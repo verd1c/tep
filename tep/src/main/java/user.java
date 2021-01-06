@@ -8,19 +8,26 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import gr.csd.uoc.cs360.tep.db.DoctorDB;
+import gr.csd.uoc.cs360.tep.db.EmployeeDB;
+import gr.csd.uoc.cs360.tep.db.NurseDB;
 import gr.csd.uoc.cs360.tep.db.PatientDB;
+import gr.csd.uoc.cs360.tep.model.Doctor;
+import gr.csd.uoc.cs360.tep.model.Employee;
+import gr.csd.uoc.cs360.tep.model.Nurse;
 import gr.csd.uoc.cs360.tep.model.Patient;
+import gr.csd.uoc.cs360.tep.model.User;
 
 /**
- * Servlet implementation class patient
+ * Servlet implementation class user
  */
-public class patient extends HttpServlet {
+public class user extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public patient() {
+    public user() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,12 +36,23 @@ public class patient extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Patient patient = null;
+		int id = Integer.parseInt(request.getParameter("user_id"));
+		User user = null;
 		
-		patient = PatientDB.getPatientByID(Integer.parseInt(request.getParameter("user_id")));
-		
-		
-		String res = new Gson().toJson(patient);
+		Patient patient;
+        Doctor doctor;
+        Nurse nurse;
+        Employee employee;
+		if((patient = PatientDB.getPatientByID(id)) != null) {
+        	user = patient;
+        }else if((doctor = DoctorDB.getDoctor(id)) != null) {
+        	user = doctor;
+        }else if((nurse = NurseDB.getNurse(id)) != null) {
+        	user = nurse;
+        }else if((employee = EmployeeDB.getEmployee(id)) != null) {
+        	user = employee;
+        }
+		String res = new Gson().toJson(user);
 		response.setStatus(HttpServletResponse.SC_OK);
 	    response.getWriter().write(res);
 	    response.getWriter().flush();
@@ -45,13 +63,8 @@ public class patient extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Patient patient = new Patient();
-		patient.setUserID(Integer.parseInt(request.getParameter("user_id")));
-		patient.setFirstName(request.getParameter("firstName"));
-		patient.setLastName(request.getParameter("lastName"));
-		patient.setAddress(request.getParameter("address"));
-		patient.setInstitution(request.getParameter("institution"));
-		PatientDB.updatePatient(patient);
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

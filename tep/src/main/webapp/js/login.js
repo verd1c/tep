@@ -36,6 +36,9 @@ function login(){
             case 'NURSE':
                 $('#maincontainer').load('nurse.html');
                 break;
+            case 'EMPLOYEE':
+                $('#maincontainer').load('employee.html');
+                break;
         }
     });
 }

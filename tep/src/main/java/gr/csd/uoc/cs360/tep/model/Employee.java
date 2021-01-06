@@ -6,6 +6,10 @@ public class Employee extends User implements Serializable{
 	private String firstName;
 	private String lastName;
 	
+	public Employee() {
+		this.setJob("employee");
+	}
+	
 	public String getFirstName() {
 		return firstName;
 	}

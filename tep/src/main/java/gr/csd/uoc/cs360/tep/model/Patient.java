@@ -13,6 +13,9 @@ public class Patient extends User implements Serializable {
 	private List<String> illnesses;
 	private List<Visit> visits;
 	
+	public Patient() {
+		this.setJob("patient");
+	}
 	
 	public List<Visit> getVisits() {
 		return visits;

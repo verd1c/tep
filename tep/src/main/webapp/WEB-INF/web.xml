@@ -94,6 +94,36 @@
   	<description></description>
   	<servlet-class>query</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>shift</servlet-name>
+  	<display-name>shift</display-name>
+  	<description></description>
+  	<servlet-class>shift</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>employee</servlet-name>
+  	<display-name>employee</display-name>
+  	<description></description>
+  	<servlet-class>employee</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>all</servlet-name>
+  	<display-name>all</display-name>
+  	<description></description>
+  	<servlet-class>all</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>user</servlet-name>
+  	<display-name>user</display-name>
+  	<description></description>
+  	<servlet-class>user</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>staff</servlet-name>
+  	<display-name>staff</display-name>
+  	<description></description>
+  	<servlet-class>staff</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>visit</servlet-name>
   	<url-pattern>/visit</url-pattern>
@@ -153,5 +183,25 @@
   <servlet-mapping>
   	<servlet-name>query</servlet-name>
   	<url-pattern>/query</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>shift</servlet-name>
+  	<url-pattern>/shift</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>employee</servlet-name>
+  	<url-pattern>/employee</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>all</servlet-name>
+  	<url-pattern>/all</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>user</servlet-name>
+  	<url-pattern>/user</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>staff</servlet-name>
+  	<url-pattern>/staff</url-pattern>
   </servlet-mapping>
 </web-app>

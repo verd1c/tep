@@ -13,11 +13,70 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import gr.csd.uoc.cs360.tep.model.Doctor;
+import gr.csd.uoc.cs360.tep.model.Employee;
+import gr.csd.uoc.cs360.tep.model.Nurse;
 import gr.csd.uoc.cs360.tep.model.Patient;
 import gr.csd.uoc.cs360.tep.model.Shift;
 import gr.csd.uoc.cs360.tep.model.User;
 
 public class ShiftDB {
+	
+	public static Shift getShift(int shift_id) {
+		Shift shift = null;
+		Statement stmt;
+        Connection con;
+        ResultSet res;
+        StringBuilder insQuery;
+        
+        try {
+        	Class.forName("com.mysql.jdbc.Driver");
+            con = TepDB.getConnection();
+
+            stmt = con.createStatement();
+            insQuery = new StringBuilder();
+            
+            insQuery.append("SELECT * FROM shift_attendee ")
+                    .append(" WHERE ")
+                    .append(" shift_id = ").append("'").append(shift_id).append("';");
+
+            stmt.execute(insQuery.toString());
+
+            res = stmt.getResultSet();
+            shift = new Shift();
+            List<User> users = new ArrayList<>();
+            User user;
+            Doctor doc;
+            Nurse nurse;
+            Employee employee;
+            while (res.next() == true) {
+            	int id = res.getInt("user_id");
+            	
+            	if((doc = DoctorDB.getDoctor(id)) != null) {
+            		users.add(doc);
+            	}else if((nurse = NurseDB.getNurse(id)) != null){
+            		users.add(nurse);
+            	}else if((employee = EmployeeDB.getEmployee(id)) != null) {
+            		users.add(employee);
+            	}
+            }
+            shift.setShiftID(shift_id);
+            shift.setAttendees(users);
+            return shift;
+            
+        } catch (SQLException ex) {
+            // Log exception
+            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		} finally {
+            // close connection
+
+        }
+
+	}
 	
 	public static Shift updateShift(List<User> attendees) {
 		List<User> shiftAttendees = new ArrayList<User>();
@@ -51,6 +110,9 @@ public class ShiftDB {
 			    shift.setShiftID(id);
 			}
 			
+			Doctor doc;
+			Nurse nurse;
+			Employee employee;
 			for(User user : attendees) {
 				query = new StringBuilder();
 				Statement statement = con.createStatement();
@@ -61,7 +123,13 @@ public class ShiftDB {
 					.append("'" + user.getUserID() + "');");
 				statement.execute(query.toString());
 				
-				shiftAttendees.add(DoctorDB.getDoctor(user.getUserID()));
+				if((doc = DoctorDB.getDoctor(user.getUserID())) != null) {
+					shiftAttendees.add(doc);
+				}else if((nurse = NurseDB.getNurse(user.getUserID())) != null) {
+					shiftAttendees.add(nurse);
+				}else if((employee = EmployeeDB.getEmployee(user.getUserID())) != null) {
+					shiftAttendees.add(employee);
+				}
 			}
 			
 			shift.setSince(timestamp.toString());

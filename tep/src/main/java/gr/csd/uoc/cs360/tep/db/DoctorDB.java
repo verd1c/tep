@@ -124,4 +124,37 @@ public class DoctorDB {
 
         return doctor;
 	}
+	
+	public static void updateDoctor(Doctor doctor) {
+		// Check that we have all we need
+
+        Statement stmt = null;
+        Connection con = null;
+        try {
+        	Class.forName("com.mysql.jdbc.Driver");
+            con = TepDB.getConnection();
+            stmt = con.createStatement();
+
+            StringBuilder insQuery = new StringBuilder();
+
+            insQuery.append("UPDATE doctors ")
+                    .append(" SET ")
+                    .append(" first_name = ").append("'" + doctor.getFirstName() + "',")
+                    .append(" last_name = ").append("'" + doctor.getLastName() + "'")
+                    .append(" WHERE user_id= ").append("'").append(doctor.getUserID()).append("';");
+
+            stmt.executeUpdate(insQuery.toString());
+
+
+        } catch (SQLException ex) {
+            // Log exception
+            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+            // close connection
+
+        }
+	}
 }

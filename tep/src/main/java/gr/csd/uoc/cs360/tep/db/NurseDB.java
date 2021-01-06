@@ -70,6 +70,8 @@ public class NurseDB {
             } else {
                 System.out.println("User was not found");
             }
+            
+            System.out.println(nurse);
         } catch (SQLException ex) {
             // Log exception
             Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
@@ -80,5 +82,38 @@ public class NurseDB {
         }
 
         return nurse;
+	}
+	
+	public static void updateNurse(Nurse nurse) {
+		// Check that we have all we need
+
+        Statement stmt = null;
+        Connection con = null;
+        try {
+        	Class.forName("com.mysql.jdbc.Driver");
+            con = TepDB.getConnection();
+            stmt = con.createStatement();
+
+            StringBuilder insQuery = new StringBuilder();
+
+            insQuery.append("UPDATE nurses ")
+                    .append(" SET ")
+                    .append(" first_name = ").append("'" + nurse.getFirstName() + "',")
+                    .append(" last_name = ").append("'" + nurse.getLastName() + "'")
+                    .append(" WHERE user_id= ").append("'").append(nurse.getUserID()).append("';");
+
+            stmt.executeUpdate(insQuery.toString());
+
+
+        } catch (SQLException ex) {
+            // Log exception
+            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+            // close connection
+
+        }
 	}
 }

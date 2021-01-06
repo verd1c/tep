@@ -9,6 +9,7 @@ public class Examination {
 	private Integer doctorID;
 	private String diagnosis;
 	private Boolean hospitalized;
+	private String note;
 	private List<Drug> drugs;
 	private List<MedicalTest> tests;
 	
@@ -65,5 +66,11 @@ public class Examination {
 	}
 	public void setHospitalized(boolean hospitalized) {
 		this.hospitalized = hospitalized;
+	}
+	public String getNote() {
+		return note;
+	}
+	public void setNote(String note) {
+		this.note = note;
 	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import gr.csd.uoc.cs360.tep.db.DoctorDB;
 import gr.csd.uoc.cs360.tep.db.DrugDB;
+import gr.csd.uoc.cs360.tep.db.EmployeeDB;
 import gr.csd.uoc.cs360.tep.db.ExaminationDB;
 import gr.csd.uoc.cs360.tep.db.NurseDB;
 import gr.csd.uoc.cs360.tep.db.PatientDB;
@@ -49,7 +50,7 @@ public class test {
 //		}
 		
 		
-//		// Make shift
+		// Make shift
 //		List<User> attendees = new ArrayList<User>();
 //		User johnny = new User();
 //		johnny.setUserID(14);
@@ -65,6 +66,8 @@ public class test {
 //		b.setUserID(20);
 //		User c = new User();
 //		c.setUserID(26);
+//		User z = new User();
+//		z.setUserID(29);
 //		
 //		attendees.add(johnny);
 //		attendees.add(bob);
@@ -73,6 +76,7 @@ public class test {
 //		attendees.add(a);
 //		attendees.add(b);
 //		attendees.add(c);
+//		attendees.add(z);
 //		System.out.println(ShiftDB.updateShift(attendees));
 		
 //		System.out.println(DrugDB.getDrug(""));
@@ -102,11 +106,15 @@ public class test {
 //		examination.setTests(tests);
 //		System.out.println(ExaminationDB.addExamination(examination));
 		
-		Nurse nurse = new Nurse();
-		nurse.setFirstName("Astrid");
-		nurse.setLastName("Mueler");
-		NurseDB.addNurse(nurse);
+//		Nurse nurse = new Nurse();
+//		nurse.setFirstName("Astrid");
+//		nurse.setLastName("Mueler");
+//		NurseDB.addNurse(nurse);
 		
+		Employee employee = new Employee();
+		employee.setFirstName("Josh");
+		employee.setLastName("Wa");
+		EmployeeDB.addEmployee(employee);
 	}
 
 }

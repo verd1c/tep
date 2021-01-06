@@ -24,12 +24,45 @@
               </ul>
 
               <form class="form-inline my-2 my-lg-0">
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#shiftModal" id="shiftBtn">Shift</button>
                 <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#sqlModal" id="sqlBtn">SQL</button>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="lgnBtn">Login</button>
                 <button type="button" class="btn btn-danger" id="logoutBtn">Logout</button>
               </form>
             </div>
         </nav>
+
+         <!-- Shift Modal -->
+         <div class="modal" id="shiftModal">
+            <div class="modal-dialog">
+            <div class="modal-content">
+            
+                <!-- Modal Header -->
+                <div class="modal-header">
+                <h4 class="modal-title" id="shiftID">Shift</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="row">
+                        <ul class="list-group" id="shiftList" style="float: center; margin: 0 auto;">
+                        </ul>
+                    </div>
+                    <div class="row" id="shiftDiv">
+                        <input type="text" class="form-control" id="shiftIDS" placeholder="Shift IDs">
+                    </div>
+                </div>
+                
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" id="editShiftBtn">Edit Shift</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                </div>
+                
+            </div>
+            </div>
+        </div>
 
         <!-- SQL Modal -->
         <div class="modal" id="sqlModal">
@@ -62,6 +95,10 @@
                         <div class="col">
                             <button type="button" class="btn btn-danger btn-mc" id="shiftsBtn">Shifts</button>
                         </div>
+                    </div>
+                    <div class="row justify-content-md-center" style="padding-top: 10px;">
+                        <ul class="list-group" id="queryResult" style="float: center; margin: 0 auto;">
+                        </ul>
                     </div>
                     <div class="row" style="padding-top: 20px;">
                         <ul class="list-group" id="queryList" style="float: center; margin: 0 auto;">
@@ -120,6 +157,7 @@
 
         <!-- Scripts -->
         <script src="js/ajaxRequest.js"></script>
+        <script src="js/edit.js"></script>
         <script src="js/query.js"></script>
         <script src="js/render.js"></script>
         <script src="js/visit.js"></script>

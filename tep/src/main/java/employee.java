@@ -1,27 +1,26 @@
 
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import gr.csd.uoc.cs360.tep.db.ExaminationDB;
-import gr.csd.uoc.cs360.tep.db.MedicalTestDB;
-import gr.csd.uoc.cs360.tep.model.MedicalTest;
+import com.google.gson.Gson;
+
+import gr.csd.uoc.cs360.tep.db.EmployeeDB;
+import gr.csd.uoc.cs360.tep.model.Employee;
 
 /**
- * Servlet implementation class makeTests
+ * Servlet implementation class employee
  */
-public class makeTests extends HttpServlet {
+public class employee extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public makeTests() {
+    public employee() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,15 +29,13 @@ public class makeTests extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int visitID = Integer.parseInt(request.getParameter("visit_id"));
-		
-//		List<MedicalTest> tests = MedicalTestDB.getTestsByExamination(visitID);
-//		
-//		for(MedicalTest test : tests) {
-//			MedicalDB.
-//		}
-		MedicalTestDB.completeTest(visitID);
-		ExaminationDB.setNote(request.getParameter("note"), visitID);
+		// TODO Auto-generated method stub
+		Employee employee = EmployeeDB.getEmployee(Integer.parseInt(request.getParameter("user_id")));
+		String res = new Gson().toJson(employee);
+		response.setStatus(HttpServletResponse.SC_OK);
+	    response.getWriter().write(res);
+	    response.getWriter().flush();
+	    response.getWriter().close();
 	}
 
 	/**

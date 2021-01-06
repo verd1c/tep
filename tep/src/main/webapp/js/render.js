@@ -94,6 +94,7 @@ function showDoctorVisit(visit){
     $('#displayvisit').append('<p class="mb-1" style="color: blueviolet;">' + visit.firstName + ' ' + visit.lastName + '</p>');
     $('#showExam').css('display', 'none');
     $('#selectExam').css('display', 'none');
+    $('#note').css('display', 'none');
 
     $('#prescribeBtn').off('click').on('click', function(){
         var visitID = visit.visitID;
@@ -134,9 +135,10 @@ function showDoctorVisit(visit){
         ajaxRequest('POST', 'http://localhost:8080/tep/examination', eData, function(o){
             var resp = JSON.parse(o.responseText);
             console.log(resp);
+
+            showDoctorVisit(sVisit);
         });
 
-        showDoctorVisit(sVisit);
     });
 
     $('#hospitalizeBtn').off('click').on('click', function(){
@@ -147,10 +149,9 @@ function showDoctorVisit(visit){
         hData.append('visit_id', visitID);
 
         ajaxRequest('POST', 'http://localhost:8080/tep/hospitalize', hData, function(o){
-            
+           
+            showDoctorVisit(sVisit);
         });
-
-        showDoctorVisit(sVisit);
     });
 
     // Prescribe drugs
@@ -226,8 +227,10 @@ function renderDiagnosis(visit, examination){
 
     // Render tests
     for(let i = 0; i < examination.tests.length; i++){
-        var test = examination.tests[i].type.charAt(0).toUpperCase() + examination.tests[i].type.slice(1) + ' ' + examination.tests[i].completed;
-        $('#test-list').append('<li class="list-group-item list-group-item-info">' + test + '</li>');
+        if(examination.tests[i].completed)
+            $('#test-list').append('<li class="list-group-item list-group-item-info">' + examination.tests[i].type.charAt(0).toUpperCase() + examination.tests[i].type.slice(1) + '</li>');
+        else
+            $('#test-list').append('<li class="list-group-item list-group-item-danger">' + examination.tests[i].type.charAt(0).toUpperCase() + examination.tests[i].type.slice(1) + '</li>');
         if(examination.tests[i].completed == true) complete = true;
     }
 
@@ -236,14 +239,19 @@ function renderDiagnosis(visit, examination){
     if(!complete){
         $('#visitStatus').html('Awaiting Nurse Test');
         $('#hospitalizeBtn').css('display', 'none');
+        $('#note').css('display', 'none');
     }else{
         $('#visitStatus').html('Nurse Test Complete. Select wether the patient needs to be hospitalized');
         $('#hospitalizeBtn').css('display', 'inline');
+        $('#note').css('display', 'inline');
+        $('#nurseNote').val(examination.note);
     }
 
     if(examination.hospitalized){
         $('#visitStatus').html('Patient Hospitalized');
         $('#hospitalizeBtn').css('display', 'none');
+        $('#note').css('display', 'inline');
+        $('#nurseNote').val(examination.note);
     }
 }
 
@@ -300,16 +308,19 @@ function showNurseVisit(visit){
     $('#showExam').css('display', 'none');
     $('#showDocMsg').css('display', 'none');
     $('#showHos').css('display', 'none');
+    $('#note').css('display', 'none');
 
     $('#giveBtn').off('click').on('click', function(){
         var sVisit = visit;
         var makeData = new FormData();
         makeData.append('visit_id', visit.visitID);
+        makeData.append('note', $('#nurseNote').val());
         
         ajaxRequest('GET', 'http://localhost:8080/tep/makeTests', makeData, function(o){
 
+            showNurseVisit(sVisit);
         });
-        showNurseVisit(sVisit);
+
     });
 
     
@@ -358,17 +369,115 @@ function renderDiagnosisNurse(visit, examination){
     }
 
     // Render status
-    console.log(complete);
     if(!complete){
         $('#visitStatus').html('Awaiting Nurse Test');
         $('#giveBtn').css('display', 'inline');
+        $('#nurseNote').removeAttr('disabled');
+        $('#note').css('display', 'inline');
+        $('#nurseNote').val('none');
     }else{
         $('#visitStatus').html('Test Completed. Awaiting Doctor Verdict.');
         $('#giveBtn').css('display', 'none');
+        $('#note').css('display', 'inline');
+        $('#nurseNote').attr('disabled', 'true');
+        $('#nurseNote').val(examination.note);
     }
 
     if(examination.hospitalized){
         $('#visitStatus').html('Patient Hospitalized');
         $('#giveBtn').css('display', 'none');
+        $('#nurseNote').val(examination.note);
+        $('#nurseNote').attr('disabled', 'true');
+        $('#note').css('display', 'inline');
+    }
+}
+
+function renderEmployee(res){
+    $('#showExam').css('display', 'none');
+    $('#showHos').css('display', 'none');
+    $('#showDocMsg').css('display', 'none');
+    $('#editShiftBtn').css('display', 'inline');
+
+    // Render data
+    console.log(res);
+    $('#usernameProfile').val(session.username);
+    $('#passwordProfile').val(session.password);
+    $('#firstName').val(res.firstName);
+    $('#lastName').val(res.lastName);
+
+    ajaxRequest('GET', 'http://localhost:8080/tep/all', undefined, function(o){
+        var r = JSON.parse(o.responseText);
+
+        fetch('employeePreset.html')
+            .then(r => r.text())
+            .then(text => renderEmployeeVisits(text, r));
+    });
+}
+
+function renderEmployeeVisits(preset, visits){
+    for(let i = visits.length - 1; i >= 0; i--){
+        let curVisit = preset;
+        if(visits[i].job == 'DOCTOR')
+            curVisit = curVisit.replace('DOCTOR_H', 'Dr. ' + visits[i].firstName + ' ' + visits[i].lastName);
+        else
+            curVisit = curVisit.replace('DOCTOR_H', visits[i].firstName + ' ' + visits[i].lastName);
+
+        curVisit = curVisit.replace('USERID_H', visits[i].userID);
+
+        $('#visit-list').append(curVisit);
+        $('#visit' + visits[i].userID).on('click', function(e){
+            $('#visit-list a').removeAttr('active');
+            showEmployeeVisit(visits[i]);
+        });
+    }
+}
+
+function showEmployeeVisit(profile){
+    var data = new FormData();
+    console.log(profile);
+    $('#displayvisit').html('');
+    $('#drugSelect').html('');
+    $('#testSelect').html('<option value="none" selected>None</option>');
+    $('#diagnosisSelect').html('');
+    if(profile.job == 'DOCTOR')
+        $('#displayvisit').append('<p class="mb-1" style="color: blueviolet;">Dr. ' + profile.firstName + ' ' + profile.lastName + '</p>');
+    else
+        $('#displayvisit').append('<p class="mb-1" style="color: blueviolet;">' + profile.firstName + ' ' + profile.lastName + '</p>');
+    $('#showExam').css('display', 'none');
+    $('#showDocMsg').css('display', 'none');
+    $('#showHos').css('display', 'none');
+    $('#note').css('display', 'none');
+    $('#showStaff').css('display', 'none');
+
+    if(profile.job == 'PATIENT'){
+        $('#showStaff').css('display', 'none');
+        $('#showExam').css('display', 'inline');
+        $('#patientFirstName').val(profile.firstName);
+        $('#patientLastName').val(profile.lastName);
+        $('#patientAMKA').val(profile.AMKA);
+        $('#patientAdress').val(profile.address);
+        $('#patientInstitution').val(profile.institution);
+
+        fetch('patientPreset.html')
+            .then(r => r.text())
+            .then(text => renderVisitsForPatient(text, profile.visits));
+    }else{
+        $('#showStaff').css('display', 'inline');
+        $('#showExam').css('display', 'none');
+        $('#staffFirstName').val(profile.firstName);
+        $('#staffLastName').val(profile.lastName);
+    }
+}
+
+function renderVisitsForPatient(preset, visits){
+    $('#patient-visit-list').html('');
+    for(let i = visits.length - 1; i >= 0; i--){
+        let curVisit = preset;
+        curVisit = curVisit.replace('VISITID_H', visits[i].visitID);
+        curVisit = curVisit.replace('ILLNESS_H', visits[i].illness);
+        curVisit = curVisit.replace('TIMESTAMP_H', visits[i].date);
+        curVisit = curVisit.replace('DOCTOR_H', 'Dr. ' + visits[i].doctor.firstName + ' ' + visits[i].doctor.lastName);
+
+        $('#patient-visit-list').append(curVisit);
     }
 }
