@@ -8,6 +8,9 @@ function renderPatient(res){
     $('#address').val(res.address);
     $('#institution').val(res.institution);
     $('#welcome').html('Welcome, ' + res.firstName);
+    $('#showExam').css('display', 'none');
+    $('#showHos').css('display', 'none');
+    $('#showDocMsg').css('display', 'none');
 
     // Render visits
     var data = new FormData();
@@ -38,15 +41,82 @@ function renderVisits(preset, visits){
     }
 }
 
+// HERE
+
 function showVisit(visit){
     console.log(visit);
+    var data = new FormData();
     $('#illness').html(visit.illness);
     $('#timestamp').html(visit.date);
     $('#displayvisit').html('');
     $('#displayvisit').append('<p class="mb-1">Monitored By:</p>');
     $('#displayvisit').append('<p class="mb-1" style="color: blueviolet;">' + 'Dr. ' + visit.doctor.firstName + ' ' + visit.doctor.lastName + '</p>');
-    $('#displayvisit').append('<p class="mb-1">The following drugs were prescribed:</p>');
+    $('#giveBtn').css('display', 'none');
+    $('#nurseNote').attr('disabled', 'true');
+
+    data.append('visit_id', visit.visitID);
+    ajaxRequest('GET', 'http://localhost:8080/tep/examination', data, function(o){
+        var res = JSON.parse(o.responseText);
+
+        console.log(res);
+        if(JSON.stringify(res) == '{}'){
+
+            // No examination yet
+            $('#showDocMsg').css('display', 'inline');
+            $('#showExam').css('display', 'none');
+            $('#showHos').css('display', 'none');
+        }else{
+
+            $('#showDocMsg').css('display', 'none');
+            $('#showHos').css('display', 'none');
+            $('#showExam').css('display', 'inline');
+            renderDiagnosisPatient(visit, res);
+        }
+    });
 }
+
+function renderDiagnosisPatient(visit, examination){
+    $('#drug-list').html('');
+    $('#test-list').html('');
+    var complete = false;
+
+    // Render diagnosis
+    $('#diagnosisResult').html('Diagnosis: ' + examination.diagnosis.charAt(0).toUpperCase() + examination.diagnosis.slice(1));
+
+    // Render drugs
+    for(let i = 0; i < examination.drugs.length; i++){
+        var drug = examination.drugs[i].name + ' (' + examination.drugs[i].type + ' ' + examination.drugs[i].density + 'mg)';
+        $('#drug-list').append('<li class="list-group-item list-group-item-info">' + drug + '</li>');
+    }
+
+    // Render tests
+    for(let i = 0; i < examination.tests.length; i++){
+        if(examination.tests[i].completed)
+            $('#test-list').append('<li class="list-group-item list-group-item-info">' + examination.tests[i].type.charAt(0).toUpperCase() + examination.tests[i].type.slice(1) + '</li>');
+        else
+            $('#test-list').append('<li class="list-group-item list-group-item-danger">' + examination.tests[i].type.charAt(0).toUpperCase() + examination.tests[i].type.slice(1) + '</li>');
+        if(examination.tests[i].completed == true) complete = true;
+    }
+
+    // Render status
+    if(!complete){
+        $('#visitStatus').html('Awaiting Nurse Test');
+        $('#note').css('display', 'inline');
+        $('#nurseNote').val('none');
+    }else{
+        $('#visitStatus').html('Test Completed. Awaiting Doctor Verdict.');
+        $('#note').css('display', 'inline');
+        $('#nurseNote').val(examination.note);
+    }
+
+    if(examination.hospitalized){
+        $('#visitStatus').html('Patient Hospitalized');
+        $('#nurseNote').val(examination.note);
+        $('#note').css('display', 'inline');
+    }
+}
+
+// DOCTOR
 
 function renderDoctor(res){
     $('#showExam').css('display', 'none');
@@ -64,6 +134,7 @@ function renderDoctor(res){
         .then(r => r.text())
         .then(text => renderDoctorVisits(text, res.visits));
 }
+
 
 function renderDoctorVisits(preset, visits){
     for(let i = visits.length - 1; i >= 0; i--){

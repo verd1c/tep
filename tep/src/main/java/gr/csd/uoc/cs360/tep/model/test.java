@@ -106,15 +106,15 @@ public class test {
 //		examination.setTests(tests);
 //		System.out.println(ExaminationDB.addExamination(examination));
 		
-//		Nurse nurse = new Nurse();
-//		nurse.setFirstName("Astrid");
-//		nurse.setLastName("Mueler");
-//		NurseDB.addNurse(nurse);
+		Nurse nurse = new Nurse();
+		nurse.setFirstName("Arianna");
+		nurse.setLastName("Grande");
+		NurseDB.addNurse(nurse);
 		
-		Employee employee = new Employee();
-		employee.setFirstName("Josh");
-		employee.setLastName("Wa");
-		EmployeeDB.addEmployee(employee);
+//		Employee employee = new Employee();
+//		employee.setFirstName("Dr");
+//		employee.setLastName("Dre");
+//		EmployeeDB.addEmployee(employee);
 	}
 
 }

@@ -51,16 +51,50 @@
                   <div class="col-sm">
                     Past Visits
                     <div class="list-group" id="visit-list">
-                        
                     </div>
                   </div>
                   <div class="col-sm">
                     <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between">
-                          <h5 class="mb-1" id="illness"></h5>
-                          <small id="timestamp"></small>
+                      <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1" id="illness"></h5>
+                        <small id="timestamp"></small>
+                      </div>
+                      <div class="mb-1" id="displayvisit"></div>
+
+                      <!-- Show Doctor Message -->
+                      <div class="mb-1" id="showDocMsg">
+                        <p class="mb-1">Pending Doctor Diagnosis</p>
+                      </div>
+
+                      <!-- Show Hospitilization -->
+                      <div class="mb-1" id="showHos">
+                        <p class="mb-1" id="diagnosisResult"></p>
+                        <p class="mb-1">Patient is being Hospitalized</p>
+                      </div>
+
+                      <!-- Show Examination -->
+                      <div class="mb-1" id="showExam">
+                        <p class="mb-1" id="diagnosisResult"></p>
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <p class="mb-1">The following drugs were prescribed:</p>
+                            <div class="mb-1 list-group" id="drug-list">
+                            </div>
+                          </div>
+
+                          <div class="form-group col-md-6">
+                            <p class="mb-1">The following tests were appointed:</p>
+                            <div class="mb-1 list-group" id="test-list">
+                            </div>
+                          </div>
                         </div>
-                        <div class="mb-1" id="displayvisit"></div>
+                        <div class="form-group" id="note">
+                          <label for="nurseNote">Note</label>
+                          <input type="text" class="form-control" id="nurseNote" placeholder="Nurse Note">
+                        </div>
+                        <p class="mb-1" id="visitStatus"></p>
+                      
+                      </div>
                     </a>
                   </div>
                 </div>
