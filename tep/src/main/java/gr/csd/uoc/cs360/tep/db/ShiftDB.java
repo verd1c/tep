@@ -157,7 +157,7 @@ public class ShiftDB {
         	query.append("SELECT doctors.user_id, doctors.specialization FROM ")
         		.append(" doctors INNER JOIN shift_attendee ")
         		.append(" ON Doctors.user_id=shift_attendee.user_id ")
-        		.append(" WHERE Doctors.specialization='" + spec + "';");
+        		.append(" WHERE Doctors.specialization='" + spec + "' AND shift_attendee.shift_id='" + shift_id + "';");
         	System.out.println(query.toString());
         	statement.execute(query.toString());
         	ResultSet res = statement.getResultSet();

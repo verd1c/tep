@@ -58,6 +58,7 @@ public class DoctorDB {
         StringBuilder query = new StringBuilder();
         
         try {
+        	Class.forName("com.mysql.jdbc.Driver");
         	con = TepDB.getConnection();
         	statement = con.createStatement();
         	
@@ -78,7 +79,11 @@ public class DoctorDB {
         }catch(SQLException e) {
         	System.out.println("I failed sadge" + e);
         	return doctor;
-        }finally {
+        } catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return doctor;
+		}finally {
         	
         }
 	}
@@ -88,7 +93,7 @@ public class DoctorDB {
         Statement stmt = null;
         Connection con = null;
         try {
-
+        	Class.forName("com.mysql.jdbc.Driver");
             con = TepDB.getConnection();
 
             stmt = con.createStatement();
@@ -117,7 +122,10 @@ public class DoctorDB {
             // Log exception
             Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
             return null;
-        } finally {
+        } catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+        	return null;
+		} finally {
             // close connection
 
         }

@@ -18,6 +18,7 @@ public class NurseDB {
         StringBuilder query = new StringBuilder();
         
         try {
+        	Class.forName("com.mysql.jdbc.Driver");
         	con = TepDB.getConnection();
         	statement = con.createStatement();
         	
@@ -34,7 +35,7 @@ public class NurseDB {
         	
         	statement.execute(query.toString());
         	return nurse;
-        }catch(SQLException e) {
+        }catch(SQLException | ClassNotFoundException e) {
         	System.out.println("I failed sadge " + e);
         	return nurse;
         }finally {
@@ -47,7 +48,7 @@ public class NurseDB {
         Statement stmt = null;
         Connection con = null;
         try {
-
+        	Class.forName("com.mysql.jdbc.Driver");
             con = TepDB.getConnection();
 
             stmt = con.createStatement();
@@ -76,7 +77,10 @@ public class NurseDB {
             // Log exception
             Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
             return null;
-        } finally {
+        } catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+        	return null;
+		} finally {
             // close connection
 
         }

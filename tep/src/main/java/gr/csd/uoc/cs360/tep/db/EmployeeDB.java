@@ -18,6 +18,7 @@ public class EmployeeDB {
         StringBuilder query = new StringBuilder();
         
         try {
+        	Class.forName("com.mysql.jdbc.Driver");
         	con = TepDB.getConnection();
         	statement = con.createStatement();
         	
@@ -34,7 +35,7 @@ public class EmployeeDB {
         	
         	statement.execute(query.toString());
         	return employee;
-        }catch(SQLException e) {
+        }catch(SQLException | ClassNotFoundException e) {
         	System.out.println("I failed sadge" + e);
         	return employee;
         }finally {
@@ -47,7 +48,7 @@ public class EmployeeDB {
         Statement stmt = null;
         Connection con = null;
         try {
-
+        	Class.forName("com.mysql.jdbc.Driver");
             con = TepDB.getConnection();
 
             stmt = con.createStatement();
@@ -70,7 +71,7 @@ public class EmployeeDB {
             } else {
                 System.out.println("User was not found");
             }
-        } catch (SQLException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             // Log exception
             Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
             return null;
